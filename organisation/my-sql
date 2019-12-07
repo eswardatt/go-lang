@@ -1,0 +1,32 @@
+//tables
+
+
+
+
+CREATE TABLE Organisation (
+    ORG_ID int NOT NULL AUTO_INCREMENT,
+    Name varchar(255) NOT NULL,
+    PRIMARY KEY (ORG_ID)
+);
+
+
+
+CREATE TABLE Department  (
+    DEP_ID int NOT NULL AUTO_INCREMENT,
+    Name varchar(255) NOT NULL,
+    ORG_ID INT,
+    FOREIGN KEY (ORG_ID) REFERENCES Organisation(ORG_ID),
+    PRIMARY KEY (DEP_ID)
+);
+
+
+CREATE TABLE Employee   (
+    EMP_ID int NOT NULL AUTO_INCREMENT,
+    FIRST_NAME  varchar(255) NOT NULL,
+     LAST_NAME   varchar(255) NOT NULL,
+     Age int ,
+     EMAIL varchar(255) NOT NULL,
+    DEP_ID INT,
+    FOREIGN KEY (DEP_ID) REFERENCES Department(DEP_ID),
+    PRIMARY KEY (EMP_ID)
+);
