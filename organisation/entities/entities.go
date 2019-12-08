@@ -8,8 +8,11 @@ type Organisation struct {
 
 //Department Properties
 type Department struct {
-	ID, OrgID int
-	Name      string
+	ID int
+	Name  string
+	OrganisationDetails Organisation
+	
+	
 }
 
 //Employee Properties
