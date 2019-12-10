@@ -1,10 +1,12 @@
-package main
+package service
 
 import (
 	
 	"gitlab.com/organisation/entities"
 	"gitlab.com/organisation/repository"
-	"fmt"
+	
+	
+	
 )
 
 
@@ -42,12 +44,26 @@ func DeleteOrganisation(Id int)string  {
 
 //GetDepartmentsByOrgId
 func GetDepartmentsByOrgId(Id int)[]entities.Department{
-return GetDepartmentsByOrgId(Id)
+  return repository.GetDepartmentsByOrgId(Id)
 }
 
-func main(){
-fmt.Println(GetDepartmentsByOrgId(2))
+func GetDepartmentsByOrgIdandDepId(OrgId,DepId int)[]entities.Department{
+return repository.GetDepartmentsByOrgIdandDepId(OrgId,DepId)
 }
 
 
+//AddDepartment
+func AddDepartment(dep entities.Department,Id int)string{
+return repository.AddDepartment(dep,Id)
+}
+//UpdateDepartment
+func UpdateDepartment(dep entities.Department,OrgId,DepId int)string{
+return repository.UpdateDepartment(dep,OrgId,DepId)
+}
+
+
+//DeleteDepartment
+func DeleteDepartment(OrgId,DepId int)string  {
+	return repository.DeleteDepartment(OrgId,DepId)
+}
 
