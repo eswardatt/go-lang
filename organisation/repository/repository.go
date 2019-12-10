@@ -1,10 +1,10 @@
-package main
+package repository
 
 import (
 	
 	"gitlab.com/organisation/configuration"
 	"gitlab.com/organisation/entities"
-	"fmt"
+	
 	)
 
 func GetOrganisations() []entities.Organisation {
@@ -161,6 +161,4 @@ func GetDepartmentsByOrgIdandDep(OrgId,DepId int)[]entities.Department {
 
 
 
-func main(){
-fmt.Println(GetDepartmentsByOrgIdandDep(2,4))
-}
+
