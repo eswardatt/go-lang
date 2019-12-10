@@ -1,11 +1,11 @@
-package main
+package repository
 
 
 import (
 	
 	"gitlab.com/organisation/configuration"
 	"gitlab.com/organisation/entities"
-	"fmt"
+	
 	)
 
 func GetOrganisations() []entities.Organisation {
@@ -124,7 +124,11 @@ func GetDepartmentsByOrgId(Id int)[]entities.Department {
 		panic(err.Error())
 	}
 	dep := entities.Department{}
+<<<<<<< HEAD
     org:= entities.Organisation{}
+=======
+	org:= entities.Organisation{}
+>>>>>>> 5aa14d993b4d682d30c5cfca088b8ab18818c72a
 	res := []entities.Department{}
 	
 	for selDB.Next() {
@@ -166,6 +170,7 @@ func GetDepartmentsByOrgIdandDepId(OrgId,DepId int)[]entities.Department {
 
 
 
+<<<<<<< HEAD
 
 //AddDepartment
 func AddDepartment(dep entities.Department,Id int)string{
@@ -314,3 +319,5 @@ emp.DepartmentDetails.ID=5
 fmt.Println(DeleteEmployee(3))
 }
 
+=======
+>>>>>>> 5aa14d993b4d682d30c5cfca088b8ab18818c72a
