@@ -123,13 +123,15 @@ func GetDepartmentsByOrgId(Id int)[]entities.Department {
 		panic(err.Error())
 	}
 	dep := entities.Department{}
+	org:= entities.Organisation{}
 	res := []entities.Department{}
 	
 	for selDB.Next() {
-		err = selDB.Scan(&dep.ID,&dep.Name,&dep.OrganisationDetails.ID,&dep.OrganisationDetails.Name)
+		err = selDB.Scan(&dep.ID,&dep.Name,&org.ID,&org.Name)
 		if err != nil {
 			panic(err.Error())
 		}
+		dep.OrganisationDetails=org
 		res = append(res, dep)
 		
 	}
