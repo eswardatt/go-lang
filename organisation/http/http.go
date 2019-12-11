@@ -95,8 +95,54 @@ func DeleteDepartment(response http.ResponseWriter, request *http.Request) {
 	   json.NewEncoder(response).Encode(x)
 }
 
+
+func GetEmployees(response http.ResponseWriter, request *http.Request) {
+	
+	   queryStringorgid := chi.URLParam(request, "orgid")
+	   queryStringdepid := chi.URLParam(request, "depid")
+	   orgid, _ := strconv.Atoi(queryStringorgid)
+	   depid, _ := strconv.Atoi(queryStringdepid)
+	   x:=service.GetEmployees(depid,orgid)
+	   json.NewEncoder(response).Encode(x)
+}
+func GetEmployeesById(response http.ResponseWriter, request *http.Request){
+       queryStringorgid := chi.URLParam(request, "orgid")
+	   queryStringdepid := chi.URLParam(request, "depid")
+	   queryStringempid := chi.URLParam(request, "employeeId")
+	   orgid, _ := strconv.Atoi(queryStringorgid)
+	   depid, _ := strconv.Atoi(queryStringdepid)
+	   employeeId, _ := strconv.Atoi(queryStringempid)
+	   x:=service.GetEmployeesById(employeeId,depid,orgid)
+	   json.NewEncoder(response).Encode(x)
+}
+
+func AddEmployee(response http.ResponseWriter, request *http.Request){
+       queryStringdepid := chi.URLParam(request, "depid")
+       depid, _ := strconv.Atoi(queryStringdepid)
+       emp:= entities.Employee{}
+	   json.NewDecoder(request.Body).Decode(&emp)
+       x:=service.AddEmployee(emp,depid)
+	   json.NewEncoder(response).Encode(x)
+}
+
+func UpdateEmployee(response http.ResponseWriter, request *http.Request){
+         queryStringempid := chi.URLParam(request, "employeeId")
+         employeeId, _ := strconv.Atoi(queryStringempid)
+         emp:= entities.Employee{}
+	     json.NewDecoder(request.Body).Decode(&emp)
+         x:=service.UpdateEmployee(emp,employeeId)
+	     json.NewEncoder(response).Encode(x)
+}
+
+func DeleteEmployee(response http.ResponseWriter, request *http.Request) {
+	   queryStringempid := chi.URLParam(request, "employeeId")
+       employeeId, _ := strconv.Atoi(queryStringempid)
+	   x:=service.DeleteEmployee(employeeId)
+	   json.NewEncoder(response).Encode(x)
+}
+
 func main()  {
-	  log.Println("Server started on: http://localhost:8080")
+	  log.Println("Server started on: http://localhost:8000")
 	  var chiRouter = chi.NewRouter()
 	  chiRouter.Get("/organizations", GetOrganisations)
 	  chiRouter.Get("/organization/{orgid}", GetOrganisationsById)
@@ -108,5 +154,10 @@ func main()  {
 	  chiRouter.Post("/organization/{orgid}/departments", AddDepartment)
 	  chiRouter.Put("/organization/{orgid}/departments/{depid}", UpdateDepartment)
 	  chiRouter.Delete("/organization/{orgid}/departments/{depid}", DeleteDepartment)
-	  log.Fatal(http.ListenAndServe(":8080", chiRouter))
+	  chiRouter.Get("/organization/{orgid}/departments/{depid}/employees", GetEmployees)
+	  chiRouter.Get("/organization/{orgid}/departments/{depid}/employees/{employeeId}", GetEmployeesById)
+	  chiRouter.Post("/organization/{orgid}/departments/{depid}/employees", AddEmployee)
+	  chiRouter.Put("/organization/{orgid}/departments/{depid}/employees/{employeeId}", UpdateEmployee)
+	  chiRouter.Delete("/organization/{orgid}/departments/{depid}/employees/{employeeId}", DeleteEmployee)
+	  log.Fatal(http.ListenAndServe(":8000", chiRouter))
 }

@@ -6,6 +6,7 @@ import (
 	"gitlab.com/organisation/configuration"
 	"gitlab.com/organisation/entities"
 	
+	
 	)
 
 func GetOrganisations() []entities.Organisation {
@@ -124,11 +125,7 @@ func GetDepartmentsByOrgId(Id int)[]entities.Department {
 		panic(err.Error())
 	}
 	dep := entities.Department{}
-<<<<<<< HEAD
     org:= entities.Organisation{}
-=======
-	org:= entities.Organisation{}
->>>>>>> 5aa14d993b4d682d30c5cfca088b8ab18818c72a
 	res := []entities.Department{}
 	
 	for selDB.Next() {
@@ -170,7 +167,6 @@ func GetDepartmentsByOrgIdandDepId(OrgId,DepId int)[]entities.Department {
 
 
 
-<<<<<<< HEAD
 
 //AddDepartment
 func AddDepartment(dep entities.Department,Id int)string{
@@ -212,7 +208,7 @@ db := configuration.DbConn()
 	return returnmsg
 }
 
-//Get Employees
+//GetEmployees
 func GetEmployees(OrgId,DepId int) []entities.Employee {
 	db := configuration.DbConn()
 	selDB, err := db.Query("SELECT emp.EMP_ID,emp.FIRST_NAME,emp.LAST_NAME,emp.Age,EMAIL, dep.DEP_ID,dep.Name,org.ORG_ID,org.Name FROM Employee as emp join  Department as dep on emp.DEP_ID=dep.DEP_ID join Organisation as org on dep.ORG_ID=org.ORG_ID  where dep.DEP_ID=? and dep.ORG_ID=?", OrgId,DepId)
@@ -238,10 +234,10 @@ func GetEmployees(OrgId,DepId int) []entities.Employee {
 }
 
 
-//Get Employees By Id
+//GetEmployeesById
 func GetEmployeesById(OrgId,DepId,EmpId int) []entities.Employee {
 	db := configuration.DbConn()
-	selDB, err := db.Query("SELECT emp.EMP_ID,emp.FIRST_NAME,emp.LAST_NAME,emp.Age,EMAIL, dep.DEP_ID,dep.Name,org.ORG_ID,org.Name FROM Employee as emp join  Department as dep on emp.DEP_ID=dep.DEP_ID join Organisation as org on dep.ORG_ID=org.ORG_ID  where dep.DEP_ID=? and dep.ORG_ID=? and emp.EMP_ID=?", OrgId,DepId,EmpId)
+	selDB, err := db.Query("SELECT emp.EMP_ID,emp.FIRST_NAME,emp.LAST_NAME,emp.Age,EMAIL,dep.DEP_ID,dep.Name,org.ORG_ID,org.Name FROM Employee as emp join  Department as dep on emp.DEP_ID=dep.DEP_ID join Organisation as org on dep.ORG_ID=org.ORG_ID where emp.EMP_ID=? and emp.DEP_ID =? and dep.ORG_ID =?",EmpId,DepId,OrgId)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -255,14 +251,13 @@ func GetEmployeesById(OrgId,DepId,EmpId int) []entities.Employee {
 			panic(err.Error())
 		}
 		 emp.DepartmentDetails=dep
-		emp.DepartmentDetails.OrganisationDetails=org
+		 emp.DepartmentDetails.OrganisationDetails=org
 	   
 		res = append(res, emp)
 	}
 	
 	return res
 }
-
 
 //AddEmployee
 func AddEmployee(emp entities.Employee,DepId int)string{
@@ -281,7 +276,7 @@ func AddEmployee(emp entities.Employee,DepId int)string{
 //Update Employee
 func UpdateEmployee(emp entities.Employee,EmpId int)string{
      db := configuration.DbConn()
-	_,  err := db.Query("update employee set FIRST_NAME=?,LAST_NAME=?,Age=?,EMAIL=?,DEP_ID=? where EMP_ID=?",emp.FirstName,emp.LastName,emp.Age,emp.Email,emp.DepartmentDetails.ID,EmpId)
+	_,  err := db.Query("update employee set FIRST_NAME=?,LAST_NAME=?,Age=?,EMAIL=? where EMP_ID=?",emp.FirstName,emp.LastName,emp.Age,emp.Email,EmpId)
 	var returnmsg string
 	if err != nil {
 		returnmsg   = "entered into error"
@@ -305,19 +300,11 @@ db := configuration.DbConn()
 	return returnmsg
 }
 
+//func main(){
+//fmt.Println(GetEmployeesById(2,11,3))
+//}
 
-func main(){
-var emp entities.Employee
-emp.FirstName="Raj"
-emp.LastName="Kumar"
-emp.Age=25
-emp.Email="rajkumar@gmail.com"
-emp.DepartmentDetails.ID=5
-//fmt.Println(AddEmployee(emp,5))
-//fmt.Println(UpdateDepartment(5,2))
-//fmt.Println(UpdateEmployee(emp,3))
-fmt.Println(DeleteEmployee(3))
-}
 
-=======
->>>>>>> 5aa14d993b4d682d30c5cfca088b8ab18818c72a
+
+
+

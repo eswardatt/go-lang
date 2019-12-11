@@ -66,4 +66,37 @@ return repository.UpdateDepartment(dep,OrgId,DepId)
 func DeleteDepartment(OrgId,DepId int)string  {
 	return repository.DeleteDepartment(OrgId,DepId)
 }
+//GetEmployees
+func GetEmployees(OrgId,DepId int)[]entities.Employee{
+     return repository.GetEmployees(OrgId,DepId)
+}
+
+//GetEmployeesById
+
+func GetEmployeesById(OrgId,DepId,EmpId int)[]entities.Employee{
+return repository.GetEmployeesById(OrgId,DepId,EmpId)
+}
+
+//AddEmployee
+func AddEmployee(emp entities.Employee,DepId int)string{
+return repository.AddEmployee(emp,DepId)
+}
+
+//UpdateEmployee
+
+func UpdateEmployee(emp entities.Employee,EmpId int)string{
+return repository.UpdateEmployee(emp,EmpId)
+}
+
+//DeleteEmployee
+func DeleteEmployee(EmpId int)string{
+return repository.DeleteEmployee(EmpId)
+}
+
+
+//func main(){
+//fmt.Println(GetEmployeesById(2,11,3))
+//}
+
+
 
