@@ -3,23 +3,48 @@ package service
 import (
 	"gitlab.com/echo/vpd-payroll/vpd-api-tenant/repository"
 	"gitlab.com/echo/vpd-payroll/vpd-api-tenant/model"
-	"fmt"
 )
+
+type Service interface {
+	GetTenants() []model.Tenant
+}
+
+type ServiceImpl struct {
+	Repo repository.Repository
+}
 
 
 //GetTenants returns all tenants
-func GetTenants()[]model.Tenant{
- return repository.GetTenants()
+func (serv ServiceImpl)GetTenants()[]model.Tenant{
+ return serv.Repo.Get()
 }
 
 
-//GetTenantsByID returns single tenant
-func GetTenantsByID(TenantID string)model.Tenant{
- return repository.GetTenantsByID(TenantID)
+//GetTenants ByID
+func (serv ServiceImpl)GetTenantsByID(TenantID string)model.Tenant{
+ return serv.Repo.GetbyID(TenantID)
 }
 
-func main(){
-fmt.Println(GetTenants())
-fmt.Println(GetTenantsByID("t2"))
+//SaveTenants
+func (serv ServiceImpl)SaveTenant(tenant model.Tenant)string{
+ return serv.Repo.Post(tenant)
 }
+
+//UpdateTenants
+func (serv ServiceImpl)UpdateTenants(tenant model.Tenant)string{
+ return serv.Repo.Put(tenant)
+}
+
+//DeleteTenant
+func (serv ServiceImpl)DeleteTenant(ID string)string{
+ return serv.Repo.Delete(ID)
+}
+
+
+
+
+
+
+
+
 

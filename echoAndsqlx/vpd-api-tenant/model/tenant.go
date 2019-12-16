@@ -4,6 +4,4 @@ package model
 type Tenant struct {
 ID,Name string
 	Contact int
-	
-	
 }
