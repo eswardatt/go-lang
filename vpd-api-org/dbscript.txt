@@ -1,0 +1,71 @@
+create schema sys
+
+CREATE SEQUENCE sys.billing_plan_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+CREATE SEQUENCE sys.billing_subscription_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+CREATE TABLE sys.billing_plan (
+    id            text not null primary key DEFAULT 'bp'|| nextval('sys.billing_plan_id_seq') NOT NULL,
+    name          VARCHAR(60) NOT NULL,
+    description   text
+);
+
+
+CREATE TABLE sys.billing_subscription (
+    id            text not null primary key DEFAULT 'bsub'|| nextval('sys.billing_subscription_id_seq') NOT NULL,
+    name          VARCHAR(60) NOT NULL,
+    description   text
+);
+
+
+
+create schema org;
+
+
+CREATE SEQUENCE org.tenant_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+
+
+CREATE TABLE org.org (
+    tenant_id                text not null primary key DEFAULT 'org'|| nextval('org.tenant_id_seq') NOT NULL,
+    name                     VARCHAR(80) NOT NULL,
+    subscription_id    text      REFERENCES sys.billing_subscription(id),
+    plan_id          text       REFERENCES sys.billing_plan (id),
+    primary_contact          VARCHAR(100),
+    primary_contact__phone   VARCHAR(30) NOT NULL,
+    primary_contact_email    VARCHAR(80) NOT NULL,
+    addr_line1               text NULL,
+    addr_line2               text,
+    addr_street              text,
+    addr_city                VARCHAR(40) NULL,
+    addr_state               VARCHAR(40) NULL,
+    addr_country             VARCHAR(3)  NULL,
+    postal_code              VARCHAR(10) NULL,   
+    created_by               VARCHAR(60) NOT NULL,
+    created_at               DATE NULL,
+    updated_by               VARCHAR(60) NOT NULL,
+    updated_at               DATE NULL
+	);
+
+
+
+
+
+
+
+
