@@ -12,6 +12,8 @@ type OrgService interface {
 	SaveOrg(org model.Org) string
 	UpdateOrg(org model.Org, Id string) string
 	DeleteOrg(Id string) string
+	GetSubscriptions() []model.Org
+	GetPlans() []model.Org
 }
 
 //GetTenants returns all tenants
@@ -35,4 +37,12 @@ func (serv OrgServiceImpl) UpdateOrg(org model.Org, Id string) string {
 
 func (serv OrgServiceImpl) DeleteOrg(Id string) string {
 	return serv.Repo.Delete(Id)
+}
+//GetSubscriptions
+func (serv OrgServiceImpl) GetSubscriptions() []model.Org {
+	return serv.Repo.GetSubscriptions()
+}
+//GetPlans
+func (serv OrgServiceImpl) GetPlans() []model.Org {
+	return serv.Repo.GetPlans()
 }

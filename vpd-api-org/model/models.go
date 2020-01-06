@@ -8,20 +8,12 @@ type Org struct {
  PrimaryContactPhone string
  PrimaryContactEmail string
  CreatedBy string
- Subscription BillingSubscription
- Plan BillingPlan
+ CreatedAt string
+ SubscriptionID string
+ SubscriptionName string
+ SubscriptionDescription string
+ PlanID string
+ PlanName string
+ PlanDescription string
 }
 
-type BillingSubscription struct{
-ID string
-Name string
-Description string
-
-}
-
-type BillingPlan struct{
-ID string
-Name string
-Description string
-
-}

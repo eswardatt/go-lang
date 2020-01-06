@@ -22,9 +22,8 @@ var api = microservice.API{
 }
 
 
-
 func beforeStart() error {
-    Initialize()
+    DbInitialize()
 	return nil
 }
 
